@@ -1,0 +1,67 @@
+@import '../shared/utils/styling/colors';
+
+.nav {
+  &-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    padding: 0 15px;
+    background-color: $orange;
+  }
+
+  &-logo {
+    height: 24px;
+    width: auto;
+    fill: $blue;
+    cursor: pointer;
+    transition: fill 0.25s;
+
+    &:hover {
+      fill: $green
+    }
+  }
+
+  &-links {
+    display: flex;
+
+    &__link {
+      display: flex;
+      padding: 0 15px;
+      margin-right: 1px;
+      position: relative;
+      transition: color 0.25s;
+
+      &--bold {
+        font-weight: bold;
+      }
+
+      &:hover {
+        color: $green
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        right: -1px;
+        bottom: 0;
+        top: 0;
+        margin: auto;
+        height: 30px;
+        width: 1px;
+        background-color: #2A33AA;
+        pointer-events: none;
+      }
+
+      &:last-child {
+        padding-right: 0;
+        margin-right: 0;
+
+        &:after {
+          content: none;
+        }
+      }
+    }
+  }
+}

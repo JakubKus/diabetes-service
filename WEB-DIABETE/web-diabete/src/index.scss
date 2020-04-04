@@ -1,0 +1,24 @@
+@import 'shared/utils/styling/colors';
+
+body {
+  margin: 0;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  a {
+    text-decoration: none;
+    color: $blue;
+  }
+
+  a,
+  p,
+  li,
+  h1, h2, h3, h4, h5, h6,
+  span,
+  input,
+  button {
+    font-family: 'Roboto', sans-serif;
+  }
+}
