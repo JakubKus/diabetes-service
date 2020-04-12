@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LOCAL_STORAGE } from '../../shared/local-storage';
 import { AuthState, Credentials } from './auth-models';
 import { loginUser } from './loginUser';
-import { Dispatch } from 'react';
+import { AppThunk } from '../../store';
+import { registerUser } from './registerUser';
 
 const { LOGIN_TOKEN } = LOCAL_STORAGE;
 
@@ -25,30 +26,46 @@ export const authSlice = createSlice({
     loginError: state => {
       state.isPending = false;
       state.isLogged = false;
+    },
+    requestRegister: state => {
+      state.isPending = true;
+    },
+    registrationError: state => {
+      state.isPending = false;
     }
   },
 });
 
 export const authReducer = authSlice.reducer;
-const { requestLogin, handleLogin, loginError } = authSlice.actions;
+const {
+  requestLogin, handleLogin, loginError, requestRegister, registrationError
+} = authSlice.actions;
 
 export const selectIsLogged = (state: { auth: AuthState }) =>
   state.auth.isLogged;
 export const selectIsPending = (state: { auth: AuthState }) =>
   state.auth.isPending;
 
-export const handleLoginUser = (credentials: Credentials) =>
-  (dispatch: Dispatch<PayloadAction>) => {
+export const handleLoginUser = (credentials: Credentials): AppThunk =>
+  async dispatch => {
     dispatch(requestLogin());
+    try {
+      const loginToken = await loginUser(credentials);
+      dispatch(handleLogin(loginToken.data.token));
+    } catch (e) {
+      console.error(new Error(e).message);
+      dispatch(loginError());
+    }
+  };
 
-    return loginUser(credentials)
-      .then(x => {
-        if (x.ok) return x.json();
-        else {
-          dispatch(loginError());
-          return Promise.reject('Wrong username or password');
-        }
-      })
-      .then(x => dispatch(handleLogin(x.token)))
-      .catch(x => console.log(x));
+export const handleRegisterUser = (credentials: Credentials): AppThunk =>
+  async dispatch => {
+    dispatch(requestRegister());
+    try {
+      await registerUser(credentials);
+      dispatch(handleLoginUser(credentials));
+    } catch (e) {
+      console.error(new Error(e).message);
+      dispatch(registrationError());
+    }
   };
