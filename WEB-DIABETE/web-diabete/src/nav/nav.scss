@@ -19,7 +19,7 @@
     transition: fill 0.25s;
 
     &:hover {
-      fill: $green
+      fill: $grey
     }
   }
 
@@ -38,7 +38,7 @@
       }
 
       &:hover {
-        color: $green
+        color: $grey
       }
 
       &:after {
@@ -50,7 +50,7 @@
         margin: auto;
         height: 30px;
         width: 1px;
-        background-color: #2A33AA;
+        background-color: $blue;
         pointer-events: none;
       }
 

@@ -32,13 +32,22 @@ export const authSlice = createSlice({
     },
     registrationError: state => {
       state.isPending = false;
+    },
+    logoutUser: state => {
+      localStorage.removeItem(LOGIN_TOKEN);
+      state.isLogged = false;
     }
   },
 });
 
 export const authReducer = authSlice.reducer;
 const {
-  requestLogin, handleLogin, loginError, requestRegister, registrationError
+  requestLogin,
+  handleLogin,
+  loginError,
+  requestRegister,
+  registrationError,
+  logoutUser
 } = authSlice.actions;
 
 export const selectIsLogged = (state: { auth: AuthState }) =>
@@ -69,3 +78,6 @@ export const handleRegisterUser = (credentials: Credentials): AppThunk =>
       dispatch(registrationError());
     }
   };
+
+export const handleLogoutUser = (): AppThunk => async dispatch =>
+  dispatch(logoutUser());
