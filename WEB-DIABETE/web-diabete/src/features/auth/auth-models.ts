@@ -9,13 +9,13 @@ export interface Credentials {
 }
 
 export interface LoginResponse {
-  token: string,
-  user: User
+  token: string;
+  user: User;
 }
 
 export interface RegisterResponse extends User {}
 
 interface User {
-  id: number,
-  username: string
+  id: number;
+  username: string;
 }

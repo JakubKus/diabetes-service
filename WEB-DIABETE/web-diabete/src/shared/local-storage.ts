@@ -1,3 +1,3 @@
 export const LOCAL_STORAGE = {
-  LOGIN_TOKEN: 'loginToken'
+  LOGIN_TOKEN: 'loginToken',
 };

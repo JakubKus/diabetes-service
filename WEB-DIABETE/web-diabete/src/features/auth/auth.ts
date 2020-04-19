@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LOCAL_STORAGE } from '../../shared/local-storage';
 import { AuthState, Credentials } from './auth-models';
-import { loginUser } from './loginUser';
 import { AppThunk } from '../../store';
+import { loginUser } from './loginUser';
 import { registerUser } from './registerUser';
 
 const { LOGIN_TOKEN } = LOCAL_STORAGE;
