@@ -1,0 +1,87 @@
+@import '../../shared/utils/styling/colors';
+@import '../../shared/utils/styling/constants';
+
+.searchRes {
+  position: relative;
+  max-height: calc(90vh - #{$nav-height} - 79px);
+  flex: 1;
+
+  &-table {
+    padding: 20px 0;
+    border-spacing: 0;
+    width: 100%;
+  }
+
+  &-tr {
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  &-td {
+    padding: 2px 5px;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    text-align: center;
+
+    &:first-child {
+      padding-left: 150px;
+    }
+
+    &:last-child {
+      padding-right: 150px;
+    }
+
+    &__name {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 100%;
+      max-width: 0;
+      text-align: left;
+    }
+
+    &__protein {
+      color: $green;
+    }
+
+    &__carbs {
+      color: $red;
+    }
+
+    &__fat {
+      color: $blue;
+    }
+  }
+
+  &-thead {
+    &__tr {
+      font-weight: bold;
+    }
+  }
+
+  &-tbody {
+    &__tr {
+      cursor: pointer;
+
+      &:hover {
+        .searchRes-td {
+          background-color: white;
+          border-color: $blue;
+        }
+      }
+    }
+  }
+
+  &-no-res {
+    font-weight: bold;
+    font-size: 35px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

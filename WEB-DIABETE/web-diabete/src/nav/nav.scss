@@ -1,11 +1,12 @@
 @import '../shared/utils/styling/colors';
+@import '../shared/utils/styling/constants';
 
 .nav {
   &-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 50px;
+    height: $nav-height;
     width: 100%;
     padding: 0 15px;
     background-color: $orange;

@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
-import { AuthForm } from '../shared/auth-form/AuthForm';
 import { useSelector, useDispatch } from 'react-redux';
+import { AuthForm } from '../shared/auth-form/AuthForm';
 import {
-  selectIsLogged, selectIsPending, handleRegisterUser
+  selectIsLogged, selectIsPending, handleRegister
 } from '../features/auth/auth';
 import './register.scss';
 
@@ -19,7 +19,7 @@ export const Register: FC = () => {
   const handleUsername = (text: string) => setUsername(text);
   const handlePassword = (text: string) => setPassword(text);
   const register = () => {
-    dispatch(handleRegisterUser({ username, password }));
+    dispatch(handleRegister({ username, password }));
     setIsInitialized(true);
   };
 
@@ -30,10 +30,10 @@ export const Register: FC = () => {
     handlePassword={handlePassword}
   >
     {isInitialized && !isLogged && !isPending && (
-      <span className="reg-error">Failed to register</span>
+      <span className="register-error">Failed to register</span>
     )}
     <input
-      className="reg-button"
+      className="register-button"
       onClick={register}
       value="Register"
       type="submit"

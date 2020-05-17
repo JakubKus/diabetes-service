@@ -1,0 +1,47 @@
+@import '../shared/utils/styling/colors';
+@import '../shared/utils/styling/mixins';
+
+.search {
+  width: 1250px;
+  min-height: 575px;
+  background-color: $orange;
+  display: flex;
+  flex-direction: column;
+  margin: 30px auto 0;
+  border-radius: 20px;
+  border: 3px solid $blue;
+  overflow: hidden;
+
+  &-bar {
+    display: flex;
+    height: 40px;
+    align-items: center;
+    border-bottom: 3px solid $blue;
+    background: white;
+  }
+
+  &-input {
+    flex: 1;
+    height: 100%;
+    padding: 0 15px;
+    font-size: 20px;
+    border: none;
+    border-right: 3px solid $blue;
+
+    &::placeholder {
+      color: $grey;
+    }
+  }
+
+  &-button {
+    @include flex-center;
+    height: 100%;
+    width: 54px;
+    cursor: pointer;
+  }
+
+  &-icon {
+    height: 24px;
+    width: 24px;
+  }
+}

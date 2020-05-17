@@ -1,18 +1,16 @@
 @import '../utils/styling/colors';
 @import '../utils/styling/mixins';
 
-.auth {
-  &-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: $orange;
-    margin: 30px auto 0;
-    width: 420px;
-    padding: 10px 0;
-    border: 3px solid $blue;
-    border-radius: 20px;
-  }
+.authForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $orange;
+  margin: 30px auto 0;
+  width: 420px;
+  padding: 10px 0;
+  border: 3px solid $blue;
+  border-radius: 20px;
 
   &-label {
     display: flex;

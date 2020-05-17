@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
-import { AuthForm } from '../shared/auth-form/AuthForm';
 import { useSelector, useDispatch } from 'react-redux';
+import { AuthForm } from '../shared/auth-form/AuthForm';
 import {
-  selectIsLogged, selectIsPending, handleLoginUser
+  selectIsLogged, selectIsPending, handleLogin
 } from '../features/auth/auth';
 import './login.scss';
 
@@ -19,7 +19,7 @@ export const Login: FC = () => {
   const handleUsername = (text: string) => setUsername(text);
   const handlePassword = (text: string) => setPassword(text);
   const login = () => {
-    dispatch(handleLoginUser({ username, password }));
+    dispatch(handleLogin({ username, password }));
     setIsInitialized(true);
   };
 
@@ -30,10 +30,10 @@ export const Login: FC = () => {
     handlePassword={handlePassword}
   >
     {isInitialized && !isLogged && !isPending && (
-      <span className="log-error">Failed to login</span>
+      <span className="login-error">Failed to login</span>
     )}
     <input
-      className="log-button"
+      className="login-button"
       onClick={login}
       value="Log in"
       type="submit"

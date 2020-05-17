@@ -3,19 +3,19 @@ import { AuthFormModel } from './auth-form-model';
 import './auth-form.scss';
 
 export const AuthForm: FC<AuthFormModel> = props => {
-  return <form className="auth auth-form" onSubmit={e => e.preventDefault()}>
-    <label className="auth-label">
-      <span className="auth-label__text">Username</span>
+  return <form className="authForm" onSubmit={e => e.preventDefault()}>
+    <label className="authForm-label">
+      <span className="authForm-label__text">Username</span>
       <input
-        className="auth-label__input"
+        className="authForm-label__input"
         value={props.username}
         onChange={e => props.handleUsername(e.target.value)}
       />
     </label>
-    <label className="auth-label">
-      <span className="auth-label__text">Password</span>
+    <label className="authForm-label">
+      <span className="authForm-label__text">Password</span>
       <input
-        className="auth-label__input"
+        className="authForm-label__input"
         value={props.password}
         onChange={e => props.handlePassword(e.target.value)}
         type="password"

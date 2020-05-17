@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
-import { ReactComponent as HomeLogo } from '../shared/icons/home.svg';
-import './nav.scss';
-import { Link } from 'react-router-dom';
-import { ROUTES } from '../shared/routes';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsLogged, handleLogoutUser } from '../features/auth/auth';
+import { Link } from 'react-router-dom';
+import { ReactComponent as HomeLogo } from '../shared/icons/home.svg';
+import { ROUTES } from '../shared/routes';
+import { selectIsLogged, handleLogout } from '../features/auth/auth';
+import './nav.scss';
 
 export const Nav: FC = () => {
   const dispatch = useDispatch();
   const isLogged = useSelector(selectIsLogged);
-  const logout = () => dispatch(handleLogoutUser());
+  const logout = () => dispatch(handleLogout());
 
   const authLinks = <>
     <Link className="nav-links__link" to={ROUTES.LOGIN}>Login</Link>
@@ -22,7 +22,8 @@ export const Nav: FC = () => {
   </>;
 
   const productsLinks = <>
-    <Link className="nav-links" to="/" onClick={logout}>Log out</Link>
+    <Link className="nav-links__link" to={ROUTES.ADD_PRODUCT} onClick={logout}>Add product</Link>
+    <Link className="nav-links__link" to="/" onClick={logout}>Log out</Link>
   </>;
 
   return <nav className="nav nav-bar">
