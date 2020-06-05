@@ -22,8 +22,6 @@ interface BrandedFoodResponse {
   };
   full_nutrients: fullNutrient[];
   serving_weight_grams: string;
-  serving_unit: string;
-  serving_qty: number;
   nf_calories: number;
   nix_item_id: string;
 }
@@ -33,4 +31,15 @@ export interface fullNutrient {
   attr_id: number;
 }
 
-
+export interface SearchResultWithNutrients {
+  id: string;
+  name: string;
+  protein?: number;
+  carbs?: number;
+  fat?: number;
+  sodium?: number;
+  sugar?: number;
+  calories?: number;
+  image?: string;
+  grams?: string;
+}

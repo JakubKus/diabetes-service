@@ -1,0 +1,117 @@
+@import '../../../shared/utils/styling/colors';
+@import '../../../shared/utils/styling/constants';
+@import '../../../shared/utils/styling/mixins';
+
+.addModal {
+  width: 500px;
+  background-color: $orange;
+  cursor: default;
+  border: 3px solid $blue;
+  border-radius: 20px;
+  padding: 20px 0 10px;
+
+  &-container {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    @include flex-center;
+  }
+
+  &-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: $blue;
+    padding: 0 15px 0 40px;
+    margin: 0;
+    width: 100%;
+    @include one-line-wrap;
+  }
+
+  &-sub-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 5px;
+  }
+
+  &-details {
+    padding: 10px 0 5px 40px;
+    display: flex;
+    width: 100%;
+  }
+
+  &-image {
+    height: 144px;
+    width: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  &-nutritionals {
+    flex: 1;
+    padding: 0 15px;
+
+    &__values {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  &-nutritional {
+    width: calc(100% / 3);
+    text-align: center;
+
+    &__value {
+      font-weight: 500;
+      margin: 0 0 15px;
+      @include one-line-wrap;
+
+      &--green {
+        color: $green;
+      }
+
+      &--red {
+        color: $red;
+      }
+
+      &--blue {
+        color: $blue;
+      }
+    }
+  }
+
+  &-amount {
+    @include flex-center;
+    flex-direction: column;
+    width: calc(100% / 3);
+
+    &-container {
+      display: flex;
+      align-items: center;
+    }
+
+    &__input {
+      height: 25px;
+      width: 60px;
+      text-align: center;
+      font-size: 14px;
+      border: 2px solid $blue;
+    }
+  }
+
+  &-error {
+    color: $red;
+    font-size: 13px;
+    font-style: italic;
+    margin: 0 15px;
+  }
+
+  &-button {
+    @include grey-button;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

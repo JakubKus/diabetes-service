@@ -1,18 +1,25 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectSearchResults } from '../../features/search/search';
-import { NUTRIENTS } from '../../features/search/search-models';
-import './search-results.scss';
+import {
+  NUTRIENTS,
+  SearchResultWithNutrients,
+} from '../../features/search/search-models';
 import { NutrientsWithNutrient } from './search-results-models';
 import { toOneDecimal } from '../../shared/utils/parsers';
+import { AddProductModal } from './add-product-modal/AddProductModal';
+import './search-results.scss';
+
+const getNutrient = ({ nutrient, fullNutrients }: NutrientsWithNutrient) =>
+  fullNutrients.find(x => x.attr_id === nutrient)?.value;
+const PER_X_GRAMS = 100;
 
 export const SearchResults: FC = () => {
   const searchResults = useSelector(selectSearchResults);
+  const [selectedFood, selectFood] = useState<SearchResultWithNutrients>();
+  const clearSelectedFood = () => selectFood(undefined);
 
-  const getNutrient = ({ nutrient, fullNutrients }: NutrientsWithNutrient) =>
-    fullNutrients.find(x => x.attr_id === nutrient)?.value;
-
-  const searchResultsWithNutrients = searchResults.branded.map(
+  const searchResultsWithNutrients = searchResults.branded.slice(0, 10).map(
     x => ({
       id: x.nix_item_id,
       name: x.food_name,
@@ -33,11 +40,13 @@ export const SearchResults: FC = () => {
         fullNutrients: x.full_nutrients,
       }),
       sugar: getNutrient({
-        nutrient: NUTRIENTS.SODIUM_ID,
+        nutrient: NUTRIENTS.SUGAR_ID,
         fullNutrients: x.full_nutrients,
       }),
       calories: x.nf_calories,
-    }),
+      image: x.photo.thumb,
+      grams: x.serving_weight_grams,
+    }) as SearchResultWithNutrients
   );
 
   return <div className="searchRes">
@@ -57,10 +66,11 @@ export const SearchResults: FC = () => {
         </tr>
         </thead>
         <tbody className="searchRes-tbody">
-        {searchResultsWithNutrients.slice(0, 10).map(x =>
+        {searchResultsWithNutrients.map(x =>
           <tr
             key={x.id}
             className="searchRes-tr searchRes-tbody__tr"
+            onClick={() => selectFood(x)}
           >
             <td className="searchRes-td searchRes-tbody__td searchRes-td__name">
               {x.name}
@@ -68,29 +78,45 @@ export const SearchResults: FC = () => {
             <td
               className="searchRes-td searchRes-tbody__td searchRes-td__protein"
             >
-              {x.protein != null ? `${toOneDecimal(x.protein)}g` : '-'}
+              {x.protein != null && x.grams != null
+                ? `${toOneDecimal(x.protein * PER_X_GRAMS / +`${x.grams}`)}g`
+                : '-'}
             </td>
             <td
               className="searchRes-td searchRes-tbody__td searchRes-td__carbs"
             >
-              {x.carbs != null ? `${toOneDecimal(x.carbs)}g` : '-'}
+              {x.carbs != null && x.grams
+                ? `${toOneDecimal(x.carbs * PER_X_GRAMS / +`${x.grams}`)}g`
+                : '-'}
             </td>
             <td className="searchRes-td searchRes-tbody__td searchRes-td__fat">
-              {x.fat != null ? `${toOneDecimal(x.fat)}g` : '-'}
+              {x.fat != null && x.grams
+                ? `${toOneDecimal(x.fat * PER_X_GRAMS / +`${x.grams}`)}g`
+                : '-'}
             </td>
             <td className="searchRes-td searchRes-tbody__td">
-              {x.sugar != null ? `${toOneDecimal(x.sugar)}g` : '-'}
+              {x.sugar != null && x.grams
+                ? `${toOneDecimal(x.sugar * PER_X_GRAMS / +`${x.grams}`)}g`
+                : '-'}
             </td>
             <td className="searchRes-td searchRes-tbody__td">
-              {x.sodium != null ? `${toOneDecimal(x.sodium)}mg` : '-'}
+              {x.sodium != null && x.grams
+                ? `${toOneDecimal(x.sodium * PER_X_GRAMS / +`${x.grams}`)}mg`
+                : '-'}
             </td>
             <td className="searchRes-td searchRes-tbody__td">
-              {x.calories != null ? `${toOneDecimal(x.calories)} cal` : '-'}
+              {x.calories != null && x.grams ?
+                `${toOneDecimal(x.calories * PER_X_GRAMS / +`${x.grams}`)}kcal`
+                : '-'}
             </td>
           </tr>,
         )}
         </tbody>
       </table> : <p className="searchRes-no-res">No results.</p>
     }
+    <AddProductModal
+      productData={selectedFood}
+      closeModal={clearSelectedFood}
+    />
   </div>;
 };
