@@ -13,11 +13,12 @@ export const addProduct = (product: SearchResultWithNutrients) => {
       carbohydrates: product?.carbs,
       salt: product?.sodium,
       calories: product?.calories,
+      weight: product?.grams,
     },
     dateadded: new Date().toLocaleString(),
   }, {
     headers: {
       Authorization: `Bearer ${token}`,
     }
-  })
-}
+  });
+};
