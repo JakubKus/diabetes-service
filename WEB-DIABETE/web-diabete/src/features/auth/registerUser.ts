@@ -1,6 +1,5 @@
 import axios from 'axios';
+import { API } from 'shared/api-endpoints';
 import { Credentials, RegisterResponse } from './auth-models';
-import { API } from '../../shared/api-endpoints';
 
-export const registerUser = (credentials: Credentials) =>
-  axios.post<RegisterResponse>(API.REGISTER, credentials);
+export const registerUser = (credentials: Credentials) => axios.post<RegisterResponse>(API.REGISTER, credentials);

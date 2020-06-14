@@ -1,13 +1,12 @@
 import React, { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { handleSearch } from 'features/search/search';
+import { ReactComponent as SearchIcon } from 'shared/icons/search.svg';
 import { SearchResults } from './search-results/SearchResults';
-import { handleSearch } from '../features/search/search';
-import { ReactComponent as SearchIcon } from '../shared/icons/search.svg';
 import './search.scss';
 
 export const Search: FC = () => {
   const dispatch = useDispatch();
-
   const [input, setInput] = useState('');
   const search = () => dispatch(handleSearch(input));
 
@@ -20,9 +19,7 @@ export const Search: FC = () => {
         placeholder="Type product name..."
         autoFocus
       />
-      <div className="search-button" onClick={search}>
-        <SearchIcon className="searchFood-icon" type="submit"  />
-      </div>
+      <div className="search-button" onClick={search}><SearchIcon className="searchFood-icon" type="submit" /></div>
     </form>
     <SearchResults />
   </div>

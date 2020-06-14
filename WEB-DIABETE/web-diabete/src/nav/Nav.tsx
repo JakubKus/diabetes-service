@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ReactComponent as HomeLogo } from '../shared/icons/home.svg';
-import { ROUTES } from '../shared/routes';
-import { selectIsLogged, handleLogout } from '../features/auth/auth';
+import { ROUTES } from 'shared/routes';
+import { selectIsLogged, handleLogout } from 'features/auth/auth';
+import { ReactComponent as HomeLogo } from 'shared/icons/home.svg';
 import './nav.scss';
 
 export const Nav: FC = () => {
@@ -13,12 +13,7 @@ export const Nav: FC = () => {
 
   const authLinks = <>
     <Link className="nav-links__link" to={ROUTES.LOGIN}>Login</Link>
-    <Link
-      className="nav-links__link nav-links__link--bold"
-      to={ROUTES.REGISTER}
-    >
-      Register
-    </Link>
+    <Link className="nav-links__link nav-links__link--bold" to={ROUTES.REGISTER}>Register</Link>
   </>;
 
   const productsLinks = <>
@@ -28,8 +23,6 @@ export const Nav: FC = () => {
 
   return <nav className="nav nav-bar">
     <HomeLogo className="nav-logo" />
-    <div className="nav-links">
-      {isLogged ? productsLinks : authLinks}
-    </div>
+    <div className="nav-links">{isLogged ? productsLinks : authLinks}</div>
   </nav>;
 };

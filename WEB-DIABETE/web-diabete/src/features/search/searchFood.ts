@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FOOD_API } from '../../shared/api-endpoints';
+import { FOOD_API } from 'shared/api-endpoints';
 import { SearchResponse } from './search-models';
 
 const createSearchParams = (query: string) => new URLSearchParams({

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { API } from '../../../shared/api-endpoints';
-import { LOCAL_STORAGE } from '../../../shared/local-storage';
-import { SearchResultWithNutrients } from '../../../features/search/search-models';
+import { API } from 'shared/api-endpoints';
+import { LOCAL_STORAGE } from 'shared/local-storage';
+import { SearchResultWithNutrients } from 'features/search/search-models';
 
 export const addProduct = (product: SearchResultWithNutrients) => {
   const token = localStorage.getItem(LOCAL_STORAGE.LOGIN_TOKEN);

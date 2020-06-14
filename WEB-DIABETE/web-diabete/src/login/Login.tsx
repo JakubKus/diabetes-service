@@ -1,9 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { AuthForm } from '../shared/auth-form/AuthForm';
-import {
-  selectIsLogged, selectIsPending, handleLogin
-} from '../features/auth/auth';
+import { AuthForm } from 'shared/auth-form/AuthForm';
+import { selectIsLogged, selectIsPending, handleLogin } from 'features/auth/auth';
 import './login.scss';
 
 export const Login: FC = () => {
@@ -29,9 +27,7 @@ export const Login: FC = () => {
     handleUsername={handleUsername}
     handlePassword={handlePassword}
   >
-    {isInitialized && !isLogged && !isPending && (
-      <span className="login-error">Failed to login</span>
-    )}
+    {isInitialized && !isLogged && !isPending && <span className="login-error">Failed to login</span>}
     <input
       className="login-button"
       onClick={login}

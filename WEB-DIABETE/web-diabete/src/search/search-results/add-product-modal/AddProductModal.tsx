@@ -1,12 +1,13 @@
 import React, { FC, useState } from 'react';
+import { toOneDecimal } from 'shared/utils/parsers';
 import { addProduct } from './addProduct';
 import { AddProductModalModel } from './add-product-modal-models';
-import { toOneDecimal } from '../../../shared/utils/parsers';
 import './add-product-modal.scss'
 
 export const AddProductModal: FC<AddProductModalModel> = props => {
   const [amount, setAmount] = useState<number | string>(100);
   const [inputError, setInputError] = useState('');
+  const { protein, grams, calories, carbs, sodium, fat, sugar } = props.productData ?? {};
 
   const handleAddProduct = async () => {
     if (typeof amount !== 'number') {
@@ -31,77 +32,54 @@ export const AddProductModal: FC<AddProductModalModel> = props => {
     props.closeModal();
   };
 
-  const {
-    protein, grams, calories, carbs, sodium, fat, sugar
-  } = props.productData ?? {};
-
   return props.productData ? (
     <div className="addModal-container" onClick={props.closeModal}>
       <div className="addModal" onClick={e => e.stopPropagation()}>
         <h2 className="addModal-title">{props.productData.name}</h2>
         <div className="addModal-details">
-          <img
-            className="addModal-image"
-            src={props.productData?.image}
-            alt={props.productData.name}
-          />
+          <img className="addModal-image" src={props.productData?.image} alt={props.productData.name} />
           <div className="addModal-nutritionals">
             <div className="addModal-nutritionals__values">
               <div className="addModal-nutritional">
                 <p className="addModal-sub-title">Protein</p>
-                <p
-                  className="addModal-nutritional__value
-                  addModal-nutritional__value--green"
-                >
-                  {protein != null && grams != null
-                    ? `${toOneDecimal(protein * +`${amount}` / +`${grams}`)}g`
-                    : '-'}
+                <p className="addModal-nutritional__value addModal-nutritional__value--green">
+                  {protein != null && grams != null ?
+                    `${toOneDecimal(protein * +`${amount}` / +`${grams}`)}g` : '-'}
                 </p>
               </div>
               <div className="addModal-nutritional">
                 <p className="addModal-sub-title">Carbs</p>
-                <p
-                  className="addModal-nutritional__value
-                  addModal-nutritional__value--red"
-                >
-                  {carbs != null && grams != null
-                    ? `${toOneDecimal(carbs * +`${amount}` / +`${grams}`)}g`
-                    : '-'}
+                <p className="addModal-nutritional__value addModal-nutritional__value--red">
+                  {carbs != null && grams != null ?
+                    `${toOneDecimal(carbs * +`${amount}` / +`${grams}`)}g` : '-'}
                 </p>
               </div>
               <div className="addModal-nutritional">
                 <p className="addModal-sub-title">Fat</p>
-                <p
-                  className="addModal-nutritional__value
-                  addModal-nutritional__value--blue"
-                >
-                  {fat != null && grams != null
-                    ? `${toOneDecimal(fat * +`${amount}` / +`${grams}`)}g`
-                    : '-'}
+                <p className="addModal-nutritional__value addModal-nutritional__value--blue">
+                  {fat != null && grams != null ?
+                    `${toOneDecimal(fat * +`${amount}` / +`${grams}`)}g` : '-'}
                 </p>
               </div>
               <div className="addModal-nutritional">
                 <p className="addModal-sub-title">Sodium</p>
                 <p className="addModal-nutritional__value">
-                  {sodium != null && grams != null
-                    ? `${toOneDecimal(sodium * +`${amount}` / +`${grams}`)}mg`
-                    : '-'}
+                  {sodium != null && grams != null ?
+                    `${toOneDecimal(sodium * +`${amount}` / +`${grams}`)}mg` : '-'}
                 </p>
               </div>
               <div className="addModal-nutritional">
                 <p className="addModal-sub-title">Sugar</p>
                 <p className="addModal-nutritional__value">
-                  {sugar != null && grams != null
-                    ? `${toOneDecimal(sugar * +`${amount}` / +`${grams}`)}g`
-                    : '-'}
+                  {sugar != null && grams != null ?
+                    `${toOneDecimal(sugar * +`${amount}` / +`${grams}`)}g` : '-'}
                 </p>
               </div>
               <div className="addModal-nutritional">
                 <p className="addModal-sub-title">Calories</p>
                 <p className="addModal-nutritional__value">
                   {calories != null && grams != null ?
-                    `${toOneDecimal(calories * +`${amount}` / +`${grams}`)}kcal`
-                    : '-'}
+                    `${toOneDecimal(calories * +`${amount}` / +`${grams}`)}kcal` : '-'}
                 </p>
               </div>
             </div>
@@ -116,14 +94,11 @@ export const AddProductModal: FC<AddProductModalModel> = props => {
                   onChange={e => setAmount(e.target.valueAsNumber || '')}
                 />
               </div>
-              {!!inputError &&
-                <span className="addModal-error">{inputError}</span>}
+              {!!inputError && <span className="addModal-error">{inputError}</span>}
             </div>
           </div>
         </div>
-        <button className="addModal-button" onClick={handleAddProduct}>
-          Add
-        </button>
+        <button className="addModal-button" onClick={handleAddProduct}>Add</button>
       </div>
     </div>
   ) : null;

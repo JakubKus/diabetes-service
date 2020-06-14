@@ -1,4 +1,4 @@
-import { fullNutrient } from '../../features/search/search-models';
+import { fullNutrient } from 'features/search/search-models';
 
 export interface NutrientsWithNutrient {
   fullNutrients: fullNutrient[];
