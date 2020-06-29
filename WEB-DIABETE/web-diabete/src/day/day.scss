@@ -1,0 +1,57 @@
+@import '../shared/utils/styling/colors';
+@import '../shared/utils/styling/mixins';
+
+.day {
+  display: flex;
+  flex-direction: column;
+  background-color: $orange;
+  border: 2px solid $blue;
+  border-radius: 10px;
+  width: 165px;
+  height: 165px;
+  padding: 15px;
+  margin: 6.5px;
+
+  &-date {
+    font-size: 16px;
+    font-weight: bold;
+    color: $blue;
+    margin: 0 0 20px;
+  }
+
+  &-products {
+    margin: 0 0 15px;
+    padding: 0;
+  }
+
+  &-product {
+    font-size: 13px;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+
+    > :first-child {
+      width: 100px;
+      @include one-line-wrap;
+    }
+
+    > :last-child {
+      font-style: italic;
+      font-size: 11px;
+    }
+  }
+
+  &-button {
+    display: block;
+    background-color: transparent;
+    border: 2px solid $blue;
+    border-radius: 10px;
+    padding: 3px 12px;
+    color: $blue;
+    font-size: 10px;
+    font-weight: bold;
+    margin: auto auto 0;
+    cursor: pointer;
+    outline: none;
+  }
+}

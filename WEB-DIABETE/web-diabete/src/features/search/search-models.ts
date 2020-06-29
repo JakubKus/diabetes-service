@@ -1,3 +1,5 @@
+import { FullNutrient } from 'shared/models/full-nutrient';
+
 // https://trackapi.nutritionix.com/v2/utils/nutrients
 export const NUTRIENTS = {
   PROTEIN_ID: 203,
@@ -20,26 +22,8 @@ interface BrandedFoodResponse {
   photo: {
     thumb: string;
   };
-  full_nutrients: fullNutrient[];
+  full_nutrients: FullNutrient[];
   serving_weight_grams: string;
   nf_calories: number;
   nix_item_id: string;
-}
-
-export interface fullNutrient {
-  value: number;
-  attr_id: number;
-}
-
-export interface SearchResultWithNutrients {
-  id: string;
-  name: string;
-  protein?: number;
-  carbs?: number;
-  fat?: number;
-  sodium?: number;
-  sugar?: number;
-  calories?: number;
-  image?: string;
-  grams?: string;
 }

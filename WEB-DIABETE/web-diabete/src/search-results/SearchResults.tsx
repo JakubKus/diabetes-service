@@ -1,14 +1,15 @@
 import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectSearchResults } from 'features/search/search';
-import { NUTRIENTS, SearchResultWithNutrients } from 'features/search/search-models';
-import { NutrientsWithNutrient } from './search-results-models';
+import { NUTRIENTS } from 'features/search/search-models';
+import { NutrientsWithNutrientId } from './search-results-models';
+import { SearchResultWithNutrients } from 'shared/models/search-result-with-nutrients'
 import { toOneDecimal } from 'shared/utils/parsers';
-import { AddProductModal } from './add-product-modal/AddProductModal';
+import { AddProductModal } from 'add-product-modal/AddProductModal';
 import './search-results.scss';
 
-const getNutrient = ({ nutrient, fullNutrients }: NutrientsWithNutrient) =>
-  fullNutrients.find(x => x.attr_id === nutrient)?.value;
+const getNutrient = ({ nutrientId, fullNutrients }: NutrientsWithNutrientId) =>
+  fullNutrients.find(x => x.attr_id === nutrientId)?.value;
 const PER_X_GRAMS = 100;
 
 export const SearchResults: FC = () => {
@@ -20,14 +21,14 @@ export const SearchResults: FC = () => {
     x => ({
       id: x.nix_item_id,
       name: x.food_name,
-      protein: getNutrient({ nutrient: NUTRIENTS.PROTEIN_ID, fullNutrients: x.full_nutrients }),
-      carbs: getNutrient({ nutrient: NUTRIENTS.CARBS_ID, fullNutrients: x.full_nutrients }),
-      fat: getNutrient({ nutrient: NUTRIENTS.FAT_ID, fullNutrients: x.full_nutrients }),
-      sodium: getNutrient({ nutrient: NUTRIENTS.SODIUM_ID, fullNutrients: x.full_nutrients }),
-      sugar: getNutrient({ nutrient: NUTRIENTS.SUGAR_ID, fullNutrients: x.full_nutrients }),
+      protein: getNutrient({ nutrientId: NUTRIENTS.PROTEIN_ID, fullNutrients: x.full_nutrients }),
+      carbs: getNutrient({ nutrientId: NUTRIENTS.CARBS_ID, fullNutrients: x.full_nutrients }),
+      fat: getNutrient({ nutrientId: NUTRIENTS.FAT_ID, fullNutrients: x.full_nutrients }),
+      sodium: getNutrient({ nutrientId: NUTRIENTS.SODIUM_ID, fullNutrients: x.full_nutrients }),
+      sugar: getNutrient({ nutrientId: NUTRIENTS.SUGAR_ID, fullNutrients: x.full_nutrients }),
       calories: x.nf_calories,
       image: x.photo.thumb,
-      grams: x.serving_weight_grams,
+      grams: +x.serving_weight_grams,
     }) as SearchResultWithNutrients
   );
 

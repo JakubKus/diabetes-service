@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { toOneDecimal } from 'shared/utils/parsers';
+import { SearchResultWithNutrients } from 'shared/models/search-result-with-nutrients';
 import { addProduct } from './addProduct';
 import { AddProductModalModel } from './add-product-modal-models';
 import './add-product-modal.scss'
@@ -22,15 +23,28 @@ export const AddProductModal: FC<AddProductModalModel> = props => {
     }
 
     if (props.productData) {
+      const scaledProduct: SearchResultWithNutrients = {
+        ...props.productData,
+        protein: scaleNutrient(protein),
+        carbs: scaleNutrient(carbs),
+        fat: scaleNutrient(fat),
+        sodium: scaleNutrient(sodium),
+        sugar: scaleNutrient(sugar),
+        calories: scaleNutrient(calories),
+        grams: amount,
+      }
+
       try {
-        await addProduct(props.productData);
+        await addProduct(scaledProduct);
       } catch (e) {
-        console.log(new Error(e).message)
+        console.error(new Error(e).message)
       }
     }
 
     props.closeModal();
   };
+
+  const scaleNutrient = (nutrition?: number) => (nutrition ?? 0) * +`${amount}` / (grams ?? 1);
 
   return props.productData ? (
     <div className="addModal-container" onClick={props.closeModal}>
@@ -43,43 +57,37 @@ export const AddProductModal: FC<AddProductModalModel> = props => {
               <div className="addModal-nutritional">
                 <p className="addModal-sub-title">Protein</p>
                 <p className="addModal-nutritional__value addModal-nutritional__value--green">
-                  {protein != null && grams != null ?
-                    `${toOneDecimal(protein * +`${amount}` / +`${grams}`)}g` : '-'}
+                  {protein != null && grams != null ? `${toOneDecimal(scaleNutrient(protein))}g` : '-'}
                 </p>
               </div>
               <div className="addModal-nutritional">
                 <p className="addModal-sub-title">Carbs</p>
                 <p className="addModal-nutritional__value addModal-nutritional__value--red">
-                  {carbs != null && grams != null ?
-                    `${toOneDecimal(carbs * +`${amount}` / +`${grams}`)}g` : '-'}
+                  {carbs != null && grams != null ? `${toOneDecimal(scaleNutrient(carbs))}g` : '-'}
                 </p>
               </div>
               <div className="addModal-nutritional">
                 <p className="addModal-sub-title">Fat</p>
                 <p className="addModal-nutritional__value addModal-nutritional__value--blue">
-                  {fat != null && grams != null ?
-                    `${toOneDecimal(fat * +`${amount}` / +`${grams}`)}g` : '-'}
+                  {fat != null && grams != null ? `${toOneDecimal(scaleNutrient(fat))}g` : '-'}
                 </p>
               </div>
               <div className="addModal-nutritional">
                 <p className="addModal-sub-title">Sodium</p>
                 <p className="addModal-nutritional__value">
-                  {sodium != null && grams != null ?
-                    `${toOneDecimal(sodium * +`${amount}` / +`${grams}`)}mg` : '-'}
+                  {sodium != null && grams != null ? `${toOneDecimal(scaleNutrient(sodium))}mg` : '-'}
                 </p>
               </div>
               <div className="addModal-nutritional">
                 <p className="addModal-sub-title">Sugar</p>
                 <p className="addModal-nutritional__value">
-                  {sugar != null && grams != null ?
-                    `${toOneDecimal(sugar * +`${amount}` / +`${grams}`)}g` : '-'}
+                  {sugar != null && grams != null ? `${toOneDecimal(scaleNutrient(sugar))}g` : '-'}
                 </p>
               </div>
               <div className="addModal-nutritional">
                 <p className="addModal-sub-title">Calories</p>
                 <p className="addModal-nutritional__value">
-                  {calories != null && grams != null ?
-                    `${toOneDecimal(calories * +`${amount}` / +`${grams}`)}kcal` : '-'}
+                  {calories != null && grams != null ? `${toOneDecimal(scaleNutrient(calories))}kcal` : '-'}
                 </p>
               </div>
             </div>

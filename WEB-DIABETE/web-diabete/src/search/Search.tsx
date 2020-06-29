@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { handleSearch } from 'features/search/search';
 import { ReactComponent as SearchIcon } from 'shared/icons/search.svg';
-import { SearchResults } from './search-results/SearchResults';
+import { SearchResults } from 'search-results/SearchResults';
 import './search.scss';
 
 export const Search: FC = () => {

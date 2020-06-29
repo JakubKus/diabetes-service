@@ -18,6 +18,7 @@ export const Nav: FC = () => {
 
   const productsLinks = <>
     <Link className="nav-links__link" to={ROUTES.ADD_PRODUCT}>Add product</Link>
+    <Link className="nav-links__link" to={ROUTES.MY_PRODUCTS}>My products</Link>
     <Link className="nav-links__link" to="/" onClick={logout}>Log out</Link>
   </>;
 

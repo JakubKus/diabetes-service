@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LOCAL_STORAGE } from 'shared/local-storage';
+import { ROUTES } from 'shared/routes';
 import { AppThunk } from 'store';
 import { AuthState, Credentials } from './auth-models';
 import { loginUser } from './loginUser';
@@ -53,6 +54,7 @@ export const handleLogin = (credentials: Credentials): AppThunk => async dispatc
   try {
     const loginToken = await loginUser(credentials);
     dispatch(_handleLogin(loginToken.data.token));
+    window.location.href = ROUTES.MY_PRODUCTS;
   } catch (e) {
     console.error(new Error(e).message);
     dispatch(_loginError());

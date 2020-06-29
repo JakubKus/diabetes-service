@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { AuthFormModel } from './auth-form-model';
 import './auth-form.scss';
 
-export const AuthForm: FC<AuthFormModel> = props => {
-  return <form className="authForm" onSubmit={e => e.preventDefault()}>
+export const AuthForm: FC<AuthFormModel> = props =>
+  <form className="authForm" onSubmit={e => e.preventDefault()}>
     <label className="authForm-label">
       <span className="authForm-label__text">Username</span>
       <input
@@ -23,7 +23,6 @@ export const AuthForm: FC<AuthFormModel> = props => {
     </label>
     {props.children}
   </form>
-};
 
 AuthForm.defaultProps = {
   password: '',
